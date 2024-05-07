@@ -57,6 +57,18 @@ class ShoppingCart {
   getProducts() {
     return this.products;
   }
+
+  totalCostOfEach() {
+    return this.products.map((elem) => {
+      return elem.price * elem.quantity;
+    })
+  }
+
+  overallCost() {
+    return this.products.reduce((acc, elem) => {
+      return acc += (elem.price * elem.quantity);
+    }, 0)
+  }
 }
 
 
@@ -80,9 +92,76 @@ class Product {
   }
 }
 
-let cart = new ShoppingCart();
-cart.addProduct([new Product("Eggs", 2, 800),
-                 new Product("Potatoes", 1, 2000), 
-                new Product("Rice", 3, 6000), 
-                new Product("Fairy Liquid", 4, 1000)]);
-console.log(cart.getProducts());
+//let cart = new ShoppingCart();
+//cart.addProduct([new Product("Eggs", 2, 800),
+//                 new Product("Potatoes", 1, 2000), 
+//                new Product("Rice", 3, 6000), 
+//                new Product("Fairy Liquid", 4, 1000)]);
+//console.log(cart.getProducts());
+//console.log(cart.totalCostOfEach());
+//console.log(cart.overallCost());
+ 
+class Employee {
+  constructor(name, salary, department) {
+    this.name = name;
+    this.salary = salary;
+    this.department = department;
+  }
+
+  getName() {
+    return this.name;
+  }
+
+  getSalary() {
+    return this.salary;
+  }
+
+  getDepartment() {
+    return this.department;
+  }
+
+  empToSalary(arr) {
+    return arr.map((elem) => {
+      return elem.salary;
+    })
+  }
+
+  totalSalary(arr) {
+    return arr.reduce((acc, elem) => {
+      return acc += elem.salary;
+    }, 0)
+  }
+}
+
+class Manager extends Employee{
+  constructor(name, salary, department, bonus) {
+    super(name, salary, department);
+    this.bonus = bonus;
+  }
+
+  getBonus() {
+    return this.bonus;
+  }
+}
+
+class Engineer extends Employee {
+  constructor(name, salary, department, tools) {
+    super(name, salary, department);
+    this.tools = tools;
+  }
+
+  getTools() {
+    return this.tools;
+  }
+}
+
+let employee = new Employee("Jezza", 50000, "Prostitution");
+let num1 = employee.empToSalary([new Employee("Jezza", 50000, "Prostitution"),
+                     new Manager("Joshy", 70000, "Hr", 1000),
+                     new Engineer("Joe", 120000, "Software")]);
+
+let num2 = employee.totalSalary([new Employee("Jezza", 50000, "Prostitution"),
+                     new Manager("Joshy", 70000, "Hr", 1000),
+                     new Engineer("Joe", 120000, "Software")]);
+
+console.log(num1, num2);
